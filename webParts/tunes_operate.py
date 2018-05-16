@@ -1,4 +1,5 @@
 import redis
+import redis
 import requests
 import time
 import os
@@ -15,13 +16,10 @@ redis_config = {
 redis_pool = redis.ConnectionPool(**redis_config)
 redis_conn = redis.Redis(connection_pool=redis_pool)
 
-while True:
-    time.sleep(1)
-    snap = redis_conn.get("snapshot")
-    if snap == '1':
-        requests.get(SNAPSHOTURL)
-        redis_conn.set("snapshot", 0)
-    movie = redis_conn.get("makemovie")
-    if movie == '1':
-        requests.get(MAKEMOVIEURL)
-        redis_conn.set("makemovie", 0)
+
+def operate_snapshot():
+    redis_conn.set("snapshot", 1)
+
+
+def operate_makemovie():
+    redis_conn.set("makemovie", 1)
