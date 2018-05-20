@@ -68,7 +68,7 @@ def upload():
     # 创建文件夹
     make_dirs()
     if request.method == 'POST':
-        files = request.files.getlist('images')
+        files = request.files.getlist('files')
         for file in files:
             if file and allowed_file(file.filename):
                 filename = secure_filename(file.filename)

@@ -21,7 +21,8 @@ class Camera(BaseCamera):
             # print(current_frames)
             try:
                 yield open(current_frames[0], 'rb').read()
-                os.remove(folder + current_frames[0])
+                if len(os.listdir(folder)) > 1:
+                    os.remove(folder + current_frames[0])
                 # print(current_frames)
             except IndexError:
                 yield open("static/uploads/error/timg.jpg", 'rb').read()
