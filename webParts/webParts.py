@@ -1,6 +1,6 @@
 from importlib import import_module
 import os
-from flask import Flask, render_template, Response, request, send_from_directory
+from flask import Flask, render_template, Response, request, send_from_directory, redirect
 from werkzeug.utils import secure_filename
 from tunes_operate import operate_snapshot, operate_makemovie
 import time
@@ -18,15 +18,16 @@ app.config['UPLOAD_FOLDER'] = 'static/uploads/'
 app.config['ALLOWED_EXTENSIONS'] = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif','avi'])
 
 
-@app.route('/', methods=['GET'])
+@app.route('/', methods=['GET','POST'])
 def index():
     """Video streaming home page."""
-    # if request.method == 'GET':
-    #     values = request.values
-    #     if values.get('snapshot'):
-    #         operate_snapshot()
-    #     if values.get('makemovie'):
-    #         operate_makemovie()
+    if request.method == 'POST':
+        values = request.values
+        if values.get('snapshot'):
+            operate_snapshot()
+        if values.get('makemovie'):
+            operate_makemovie()
+        return redirect('/upload')
     return render_template('index.html')
 
 
@@ -63,7 +64,7 @@ def upload():
             else:
                 continue
             # 如果是截图则放到截图文件夹里面 //还没补充完整
-            if filename.split('.')[-1] is None:
+            if 'snapshot' in filename:
                 file.save(os.path.join(app.config['UPLOAD_FOLDER'] + 'snapshot/', filename))
             elif filename.rsplit('.', 1)[1] == 'avi':
                 file.save(os.path.join(app.config['UPLOAD_FOLDER'] + 'video/', filename))
@@ -86,4 +87,4 @@ def uploaded_video(video):
 
 
 if __name__ == '__main__':
-    app.run(host='127.0.0.1', threaded=True)
+    app.run(host='0.0.0.0', threaded=True)

@@ -5,9 +5,11 @@
   <body>
     <h1>Video Streaming Demonstration</h1>
     <img src="{{ url_for('video_feed') }}">
+    <form method="post" >
+    <div class="form-group">
+        <input  type="submit" class="btn btn-default" value="SnapShot" name="snapshot">
+        <input  type="submit" class="btn btn-default" value="MakeMovie" name="makemovie">
+    </div>
+    </form>
   </body>
-  <div>
-    <button name="snapshot" value="snapshot"></button>
-    <button name="makemovie" value="makemovie"></button>
-  </div>
 </html>
