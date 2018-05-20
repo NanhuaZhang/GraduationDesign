@@ -15,27 +15,27 @@ def combine_params(dif: list):
     return results
 
 
-while True:
-    current_files = os.listdir(UPLOAD_PATH)
-    time.sleep(1)
-    second_after = os.listdir(UPLOAD_PATH)
-    difference = list(set(current_files).difference(set(second_after)))
-    print(difference)
-
-    images = combine_params(difference)
-
-    response = requests.post(UPLOAD_URL, files=images)
-    print(response.text)
-
-
 # while True:
-#     difference = ['1.jpg', '2.jpg', '3.jpg']
-#     # images = combine_params(difference)
-#     # print(images)
-#     images = [('images', open('1.jpg', 'rb')),
-#               ('images', open('2.jpg', 'rb')),
-#               ('images', open('3.jpg', 'rb'))]
-#     # print(images)
+#     current_files = os.listdir(UPLOAD_PATH)
+#     time.sleep(1)
+#     second_after = os.listdir(UPLOAD_PATH)
+#     difference = list(set(current_files).difference(set(second_after)))
+#     print(difference)
+#
+#     images = combine_params(difference)
+#
 #     response = requests.post(UPLOAD_URL, files=images)
 #     print(response.text)
-#     time.sleep(60)
+
+
+while True:
+    difference = ['1.jpg', '2.jpg', '3.jpg']
+    # images = combine_params(difference)
+    # print(images)
+    images = [('images', open('1.jpg', 'rb')),
+              ('images', open('2.jpg', 'rb')),
+              ('images', open('3.jpg', 'rb'))]
+    # print(images)
+    response = requests.post(UPLOAD_URL, files=images)
+    # time.sleep(3)
+    time.sleep(1)

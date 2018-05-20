@@ -1,7 +1,8 @@
 import time
 from base_camera import BaseCamera
 import os
-folder = 'static/uploads/videoFrames'
+import random
+folder = 'static/uploads/videoFrames/'
 
 
 class Camera(BaseCamera):
@@ -12,9 +13,17 @@ class Camera(BaseCamera):
 
     @staticmethod
     def frames():
-        count = 0
+        time.sleep(3)
         while True:
             # time.sleep(0.1)
-            frame = os.listdir(folder)[0]
-            yield frame
-            os.remove(os.path.join(folder, frame))
+            # print("before" + str(time.time()))
+            current_frames = os.listdir(folder)
+            print(current_frames)
+            try:
+                yield open(current_frames[0], 'rb').read()
+                os.remove(folder + current_frames[0])
+                print(current_frames)
+            except IndexError:
+                yield open("static/uploads/error/timg.jpg", 'rb').read()
+            # print("after" + str(time.time()))
+

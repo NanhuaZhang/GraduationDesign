@@ -3,6 +3,7 @@ import os
 from flask import Flask, render_template, Response, request, send_from_directory
 from werkzeug.utils import secure_filename
 from tunes_operate import operate_snapshot, operate_makemovie
+import time
 # import camera driver
 if os.environ.get('CAMERA'):
     Camera = import_module('camera_' + os.environ['CAMERA']).Camera
@@ -20,13 +21,12 @@ app.config['ALLOWED_EXTENSIONS'] = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif
 @app.route('/', methods=['GET'])
 def index():
     """Video streaming home page."""
-    if request.method == 'GET':
-        values = request.values
-        # 。。。
-        if values.get('snapshot'):
-            operate_snapshot()
-        if values.get('makemovie'):
-            operate_makemovie()
+    # if request.method == 'GET':
+    #     values = request.values
+    #     if values.get('snapshot'):
+    #         operate_snapshot()
+    #     if values.get('makemovie'):
+    #         operate_makemovie()
     return render_template('index.html')
 
 
@@ -34,6 +34,7 @@ def gen(camera):
     """Video streaming generator function."""
     while True:
         frame = camera.get_frame()
+        # print(frame)
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
@@ -62,7 +63,7 @@ def upload():
             else:
                 continue
             # 如果是截图则放到截图文件夹里面 //还没补充完整
-            if filename.split('.')[-1]:
+            if filename.split('.')[-1] is None:
                 file.save(os.path.join(app.config['UPLOAD_FOLDER'] + 'snapshot/', filename))
             elif filename.rsplit('.', 1)[1] == 'avi':
                 file.save(os.path.join(app.config['UPLOAD_FOLDER'] + 'video/', filename))
@@ -78,9 +79,11 @@ def upload():
 def uploaded_snapshot(snapshot):
     return send_from_directory(app.config['UPLOAD_FOLDER'] + 'snapshot/', snapshot)
 
+
 @app.route('/uploads/<video>')
 def uploaded_video(video):
     return send_from_directory(app.config['UPLOAD_FOLDER'] + 'video/', video)
+
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', threaded=True)
