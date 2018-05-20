@@ -16,7 +16,6 @@ redis_pool = redis.ConnectionPool(**redis_config)
 redis_conn = redis.Redis(connection_pool=redis_pool)
 
 while True:
-    time.sleep(1)
     snap = redis_conn.get("snapshot")
     if snap == '1':
         requests.get(SNAPSHOTURL)

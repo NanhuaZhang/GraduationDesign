@@ -52,10 +52,21 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1] in app.config['ALLOWED_EXTENSIONS']
 
 
+def make_dirs():
+    if not os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'] + 'snapshot/')):
+        os.mkdir(os.path.join(app.config['UPLOAD_FOLDER'] + 'snapshot/'))
+    if not os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'] + 'video/')):
+        os.mkdir(os.path.join(app.config['UPLOAD_FOLDER'] + 'video/'))
+    if not os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'] + 'videoFrames/')):
+        os.mkdir(os.path.join(app.config['UPLOAD_FOLDER'] + 'videoFrames/'))
+
+
 @app.route('/upload', methods=['GET', 'POST'])
 def upload():
     snapshots = list()
     videos = list()
+    # 创建文件夹
+    make_dirs()
     if request.method == 'POST':
         files = request.files.getlist('images')
         for file in files:
@@ -63,7 +74,7 @@ def upload():
                 filename = secure_filename(file.filename)
             else:
                 continue
-            # 如果是截图则放到截图文件夹里面 //还没补充完整
+            # 如果是截图则放到截图文件夹里面
             if 'snapshot' in filename:
                 file.save(os.path.join(app.config['UPLOAD_FOLDER'] + 'snapshot/', filename))
             elif filename.rsplit('.', 1)[1] == 'avi':
