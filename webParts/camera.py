@@ -15,11 +15,12 @@ class Camera(BaseCamera):
     def frames():
         time.sleep(3)
         while True:
-            # time.sleep(0.1)
             # print("before" + str(time.time()))
             current_frames = os.listdir(folder)
             # print(current_frames)
             try:
+                # 每秒10帧
+                time.sleep(0.1)
                 start = current_frames[0]
                 yield open(folder + start, 'rb').read()
                 if len(os.listdir(folder)) > 1:
