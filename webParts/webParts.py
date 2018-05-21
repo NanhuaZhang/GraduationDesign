@@ -23,11 +23,14 @@ def index():
     """Video streaming home page."""
     if request.method == 'POST':
         values = request.values
-        if values.get('snapshot'):
-            operate_snapshot()
-        if values.get('makemovie'):
-            operate_makemovie()
-        return redirect('/upload')
+        try:
+            if values.get('snapshot'):
+                operate_snapshot()
+            if values.get('makemovie'):
+                operate_makemovie()
+            return redirect('/upload')
+        except ConnectionError:
+            return "Redis Connection Permission"
     return render_template('index.html')
 
 
@@ -83,18 +86,19 @@ def upload():
                 file.save(os.path.join(app.config['UPLOAD_FOLDER'] + 'videoFrames/', filename))
     if request.method == 'GET':
         snapshots = os.listdir(app.config['UPLOAD_FOLDER'] + 'snapshot/')
+
         videos = os.listdir(app.config['UPLOAD_FOLDER'] + 'video/')
     return render_template('upload.html', snapshots=snapshots, videos=videos)
 
 
 @app.route('/upload/<snapshot>')
 def uploaded_snapshot(snapshot):
-    return send_from_directory(app.config['UPLOAD_FOLDER'] + 'snapshot/', snapshot)
+    return send_from_directory(app.config['UPLOAD_FOLDER'] + 'snapshot/', snapshot, )
 
 
 @app.route('/upload/<video>')
 def uploaded_video(video):
-    return send_from_directory(app.config['UPLOAD_FOLDER'] + 'video/', video)
+    return send_from_directory(app.config['UPLOAD_FOLDER'] + 'video/', video, as_attachment=True)
 
 
 if __name__ == '__main__':

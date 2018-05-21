@@ -14,7 +14,7 @@
    This is a list of the files you just snapshot before, click on them to load/download them
    <ul>
     {% for snap in snapshots %}
-     <li><a href="{{url_for('uploaded_snapshot', snapshot=snap)}}">{{file}}</a></li>
+     <li><a href="{{url_for('uploaded_snapshot', snapshot=snap)}}">{{snap}}</a></li>
     {% endfor %}
    </ul>
    </div>
@@ -26,7 +26,7 @@
          This is a list of the movies you just make, click on them to load/download them
           <ul>
             {% for video in videos %}
-        <li><a href="{{url_for('uploaded_video', video=video)}}">{{file}}</a></li>
+        <li><a href="{{url_for('uploaded_video', video=video)}}">{{video}}</a></li>
              {% endfor %}
         </ul>
       </div>

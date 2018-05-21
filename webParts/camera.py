@@ -21,7 +21,7 @@ class Camera(BaseCamera):
             # print(current_frames)
             try:
                 start = current_frames[0]
-                yield open(start, 'rb').read()
+                yield open(folder + start, 'rb').read()
                 if len(os.listdir(folder)) > 1:
                     os.remove(folder + start)
                 # print(current_frames)
