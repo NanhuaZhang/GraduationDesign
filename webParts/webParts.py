@@ -91,12 +91,12 @@ def upload():
     return render_template('upload.html', snapshots=snapshots, videos=videos)
 
 
-@app.route('/upload/<snapshot>')
+@app.route('/upload_snapshot/<snapshot>')
 def uploaded_snapshot(snapshot):
     return send_from_directory(app.config['UPLOAD_FOLDER'] + 'snapshot/', snapshot)
 
 
-@app.route('/upload/<video>')
+@app.route('/upload_video/<video>')
 def uploaded_video(video):
     return send_from_directory(app.config['UPLOAD_FOLDER'] + 'video/', video, as_attachment=True)
 

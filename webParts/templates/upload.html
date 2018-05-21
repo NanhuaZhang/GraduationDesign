@@ -21,15 +21,15 @@
    <div class="header">
     <h3 class="text-muted">Movies</h3>
    </div>
-      <hr/>
-      <div>
-         This is a list of the movies you just make, click on them to load/download them
-          <ul>
-            {% for video in videos %}
-        <li><a href="{{url_for('uploaded_video', video=video)}}">{{video}}</a></li>
-             {% endfor %}
-        </ul>
-      </div>
+   <hr/>
+   <div>
+   This is a list of the movies you just make, click on them to load/download them
+   <ul>
+   {% for video in videos %}
+    <li><a href="{{url_for('uploaded_video', video=video)}}">{{video}}</a></li>
+      {% endfor %}
+    </ul>
+    </div>
    <hr/>
    </div>
  </body>
