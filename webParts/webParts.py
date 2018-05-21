@@ -84,7 +84,7 @@ def upload():
     if request.method == 'GET':
         snapshots = os.listdir(app.config['UPLOAD_FOLDER'] + 'snapshot/')
         videos = os.listdir(app.config['UPLOAD_FOLDER'] + 'video/')
-    return render_template('upload.html', snapshots=snapshots, videos= videos)
+    return render_template('upload.html', snapshots=snapshots, videos=videos)
 
 
 @app.route('/uploads/<snapshot>')

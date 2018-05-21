@@ -26,7 +26,7 @@
          This is a list of the movies you just make, click on them to load/download them
           <ul>
             {% for video in videos %}
-        <li><a href="{{url_for('uploaded_video', snapshot=video)}}">{{file}}</a></li>
+        <li><a href="{{url_for('uploaded_video', video=video)}}">{{file}}</a></li>
              {% endfor %}
         </ul>
       </div>
