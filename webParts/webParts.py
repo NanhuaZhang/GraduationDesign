@@ -93,7 +93,7 @@ def upload():
 
 @app.route('/upload/<snapshot>')
 def uploaded_snapshot(snapshot):
-    return send_from_directory(app.config['UPLOAD_FOLDER'] + 'snapshot/', snapshot, )
+    return send_from_directory(app.config['UPLOAD_FOLDER'] + 'snapshot/', snapshot)
 
 
 @app.route('/upload/<video>')
