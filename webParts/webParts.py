@@ -18,7 +18,7 @@ app.config['UPLOAD_FOLDER'] = 'static/uploads/'
 app.config['ALLOWED_EXTENSIONS'] = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif','avi'])
 
 
-@app.route('/', methods=['GET','POST'])
+@app.route('/', methods=['GET', 'POST'])
 def index():
     """Video streaming home page."""
     if request.method == 'POST':
@@ -30,10 +30,12 @@ def index():
                 operate_makemovie()
             if values.get('restart'):
                 operate_restart()
+                return redirect('/')
             if values.get('quit'):
                 operate_quit()
+                return redirect('/')
             return redirect('/upload')
-        except PermissionError:
+        except Exception:
             return "Redis Connection Permission"
     return render_template('index.html')
 

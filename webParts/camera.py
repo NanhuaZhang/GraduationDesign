@@ -15,18 +15,14 @@ class Camera(BaseCamera):
     def frames():
         time.sleep(3)
         while True:
-            # print("before" + str(time.time()))
-            current_frames = os.listdir(folder)
-            # print(current_frames)
-            try:
-                # 每秒10帧
-                time.sleep(0.1)
-                start = current_frames[0]
-                yield open(folder + start, 'rb').read()
-                if len(os.listdir(folder)) > 1:
-                    os.remove(folder + start)
-                # print(current_frames)
-            except IndexError:
+            if len(os.listdir(folder)):
                 yield open("static/uploads/error/timg.jpg", 'rb').read()
-            # print("after" + str(time.time()))
+                continue
+            current_frames = os.listdir(folder)
+            # 每秒10帧
+            time.sleep(0.1)
+            start = current_frames[0]
+            yield open(folder + start, 'rb').read()
+            if len(os.listdir(folder)) > 1:
+                os.remove(folder + start)
 
