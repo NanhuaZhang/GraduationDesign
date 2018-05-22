@@ -15,8 +15,8 @@ class Camera(BaseCamera):
     def frames():
         time.sleep(3)
         while True:
-            if len(os.listdir(folder)):
-                yield open("static/uploads/error/timg.jpg", 'rb').read()
+            if len(os.listdir(folder)) == 1:
+                yield open(folder + 'timg.jpg', 'rb').read()
                 continue
             current_frames = os.listdir(folder)
             # 每秒10帧
