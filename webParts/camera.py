@@ -22,6 +22,7 @@ class Camera(BaseCamera):
             # 每秒10帧
             time.sleep(0.1)
             start = current_frames[0]
+            print(start)
             yield open(folder + start, 'rb').read()
             if len(os.listdir(folder)) > 1:
                 os.remove(folder + start)
