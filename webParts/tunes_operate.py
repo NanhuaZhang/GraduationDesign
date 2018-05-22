@@ -23,3 +23,11 @@ def operate_snapshot():
 
 def operate_makemovie():
     redis_conn.set("makemovie", 1)
+
+
+def operate_quit():
+    redis_conn.set("quit", 1)
+
+
+def operate_restart():
+    redis_conn.set("restart", 1)

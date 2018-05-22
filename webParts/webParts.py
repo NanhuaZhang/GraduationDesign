@@ -2,7 +2,7 @@ from importlib import import_module
 import os
 from flask import Flask, render_template, Response, request, send_from_directory, redirect
 from werkzeug.utils import secure_filename
-from tunes_operate import operate_snapshot, operate_makemovie
+from tunes_operate import operate_snapshot, operate_makemovie, operate_restart, operate_quit
 import time
 # import camera driver
 if os.environ.get('CAMERA'):
@@ -28,8 +28,12 @@ def index():
                 operate_snapshot()
             if values.get('makemovie'):
                 operate_makemovie()
+            if values.get('restart'):
+                operate_restart()
+            if values.get('quit'):
+                operate_quit()
             return redirect('/upload')
-        except ConnectionError:
+        except PermissionError:
             return "Redis Connection Permission"
     return render_template('index.html')
 
