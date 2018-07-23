@@ -1,11 +1,11 @@
 # GraduationDesign
 my graduation design. web part
 
-##STEP1
+## STEP1
 在树莓派上运行Motion
 * sudo motion
 
-##STEP2
+## STEP2
 在树莓派上运行图片帧上传脚本
 * python uploads.py
 
@@ -13,8 +13,8 @@ my graduation design. web part
 
     UPLOAD_URL： 上传服务器路径(本地服务器)
 
-##STEP3
+## STEP3
 在服务器或者本地运行网站部分
 
 
-####实现视频流的实时传播
+#### 实现视频流的实时传播
